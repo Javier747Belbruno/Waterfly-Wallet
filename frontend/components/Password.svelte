@@ -2,7 +2,7 @@
     import { bind } from "svelte/internal";
 
 import { walletStore } from "../stores";
-import End from "./End.svelte";
+
 
     let something = "";
     const getUsage = async () => {

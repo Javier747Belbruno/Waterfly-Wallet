@@ -15,6 +15,8 @@ import Password from "./components/Password.svelte";
 		console.log(accounts_return);
 		accounts = accounts_return;
 		loading = false
+		// save accounts in walletStore
+		//walletStore.set({ accounts })
 	})
 
 </script>
