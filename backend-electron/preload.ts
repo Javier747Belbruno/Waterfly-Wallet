@@ -5,6 +5,7 @@ const API = {
 	//invoke has to return something.
 	sendPromise: msg => ipcRenderer.invoke("promise-msg", msg),
 	accountsInFolder: () => ipcRenderer.invoke("searchAccounts"),
+	createAccount: (name, pass) => ipcRenderer.invoke("createAccount", name, pass),
 }
 
 contextBridge.exposeInMainWorld("api", API)

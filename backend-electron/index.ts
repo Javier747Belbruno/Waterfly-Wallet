@@ -27,7 +27,7 @@ async function run() {
 	const { AccountManager, SignerType } = require("@iota/wallet")
 
 	const manager = new AccountManager({
-		storagePath: "./data-waterfly/nani-database",
+		storagePath: "./data-waterfly/nani",
 	})
 
 	try {
@@ -75,8 +75,11 @@ ipcMain.handle("promise-msg", async (event, args) => {
 /******************************************************/
 async function getNameFoldersInDataFolder() {
 	const fs = require("fs")
-	const files = fs.readdirSync(join(__dirname, "../data-waterfly"))
-	return files
+	// only folders,not files
+	const folders = fs
+		.readdirSync("./data-waterfly")
+		.filter(file => fs.lstatSync("./data-waterfly/" + file).isDirectory())
+	return folders
 }
 
 ipcMain.handle("searchAccounts", async (event, args) => {
@@ -90,3 +93,56 @@ ipcMain.handle("searchAccounts", async (event, args) => {
 	}
 })
 /******************************************************/
+
+async function createAccount() {
+	const { AccountManager, SignerType } = require("@iota/wallet")
+
+	let name = "Rodrigo"
+	let pass = "12345678"
+	const manager = new AccountManager({
+		storagePath: "./data-waterfly/" + name,
+	})
+
+	try {
+		manager.setStrongholdPassword(pass)
+		let account
+		try {
+			account = manager.getAccount(name)
+		} catch (e) {
+			console.log("Couldn't get account, creating a new one")
+		}
+
+		// Create account only if it does not already exist
+		if (!account) {
+			manager.storeMnemonic(SignerType.Stronghold)
+			account = manager.createAccount({
+				clientOptions: {
+					node: { url: "https://api.lb-0.h.chrysalis-devnet.iota.cafe" },
+					localPow: true,
+				},
+				alias: name,
+			})
+			console.log("Account created:", account.id())
+		}
+
+		const synced = await account.sync()
+		console.log("Synced account", synced)
+		return synced
+	} catch (error) {
+		console.log("Error: " + error)
+		return error
+	}
+}
+
+ipcMain.handle("createAccount", async (event, args) => {
+	console.log(args)
+	let result = await createAccount()
+
+	if (result) {
+		if (result instanceof Promise) {
+			return await result
+		}
+
+		return result
+	}
+})

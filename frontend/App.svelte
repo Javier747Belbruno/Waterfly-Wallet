@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { onMount } from "svelte"
 
-	import { walletStore } from "./stores"
+	import { walletStore,accounts_store,selected_account } from "./stores"
 	import Start from "./components/Start.svelte"
-import Password from "./components/Password.svelte";
+	import Accounts from "./components/Accounts.svelte";
+	import CreateAccount from "./components/CreateAccount.svelte";
+	import Main from "./components/Main.svelte";
 
 	let loading = true
 
@@ -11,12 +13,17 @@ import Password from "./components/Password.svelte";
 
 	onMount(async () => {
 		loading = true
-		 let accounts_return = await globalThis.api.accountsInFolder();
-		console.log(accounts_return);
+		try{
+	 	let accounts_return = await globalThis.api.accountsInFolder();
 		accounts = accounts_return;
+		// save accounts names in store
+		accounts_store.set(accounts)
 		loading = false
-		// save accounts in walletStore
-		//walletStore.set({ accounts })
+		}catch(e){
+			console.log(e)
+			//show error screen pop up
+			alert("Error: loading accounts Details: " + e)
+		}
 	})
 
 </script>
@@ -26,14 +33,20 @@ import Password from "./components/Password.svelte";
     
 	{#if $walletStore.state === 'not_started'}
 		<Start {loading} />
-		 <input type="text" bind:value={accounts} />
-		{$walletStore.state}
-	{:else if $walletStore.state === 'load_account'}
-		<Password />
+	{:else if $walletStore.state === 'select_account'}
+		<Accounts />
 	{:else if $walletStore.state === 'in_transaction'}
-		<Password />
+		<Accounts />
+	{:else if $walletStore.state === 'create_account'}
+		<CreateAccount />
+	{:else if $walletStore.state === 'main'}
+		<Main />
 	{/if}
 	<footer>
+		{$walletStore.state}
+		{$accounts_store}
+		{$selected_account}
+		<br/>
 		A weekend project by
 		<a href="https://github.com/Javier747Belbruno" target="_blank">Javier747</a>, made with
 		<a href="https://svelte.dev/" target="_blank">Svelte</a> and

@@ -1,5 +1,8 @@
 import { get, writable } from "svelte/store"
 
+export const accounts_store = writable("")
+export const selected_account = writable("")
+
 type Wallet = {} & (NotStarted | LoadAccount | CreateAccount | InTransaction | Main)
 
 interface NotStarted {
@@ -7,7 +10,7 @@ interface NotStarted {
 }
 
 interface LoadAccount {
-	state: "load_account"
+	state: "select_account"
 }
 
 interface CreateAccount {
@@ -29,14 +32,40 @@ function createWalletStore() {
 	return {
 		subscribe,
 		set,
+		createAccount() {
+			update(wallet => {
+				if (wallet.state === "select_account") {
+					return { state: "create_account" }
+				}
+				return wallet
+			})
+		},
+		confirmAccount(name_account) {
+			update(wallet => {
+				if (wallet.state === "create_account") {
+					selected_account.set(name_account)
+					return { state: "main" }
+				}
+				return wallet
+			})
+		},
+		selectAccount(name_account) {
+			update(wallet => {
+				if (wallet.state === "select_account") {
+					selected_account.set(name_account)
+					return { state: "main" }
+				}
+				return wallet
+			})
+		},
 		next() {
-			update(g => {
-				switch (g.state) {
+			update(wallet => {
+				switch (wallet.state) {
 					case "not_started":
 						return {
-							state: "load_account",
+							state: "select_account",
 						}
-					case "load_account":
+					case "select_account":
 						return {
 							state: "main",
 						}
