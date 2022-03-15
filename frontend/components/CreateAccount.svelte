@@ -20,13 +20,28 @@
     }
 
     function createAccount() {
-        
-        try{    
-            accountToTangle();
-        }catch(e){
-			console.log(e)
-			alert("Error: loading accounts Details: " + e)
-		}
+        //validate name and pass is not blank
+        if(nameAccount.length > 0 && password.length > 0){
+            
+            // validate name is not inside array accounts_store
+            //create and array from accounts_store divided by blancks
+            let array_accounts = $accounts_store.toString().toUpperCase().split(",");
+            console.log(array_accounts);
+            //validate name is not inside array_accounts , uppercase and lowercase
+
+            if(array_accounts.indexOf(nameAccount.toUpperCase()) === -1){
+                try{    
+                    accountToTangle();
+                }catch(e){
+                    console.log(e)
+                    alert("Error: loading accounts Details: " + e)
+                }
+            }else{
+                alert("Account name already exists")
+            }
+        }else{
+            alert("Please enter a name and password");
+        }
     }
 
 </script>
