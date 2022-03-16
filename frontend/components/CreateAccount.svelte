@@ -44,6 +44,11 @@
         }
     }
 
+    function confirmAccount(){
+        accounts_store.set(accounts_store + "," + nameAccount);
+        walletStore.confirmAccount(nameAccount)
+    }
+
 </script>
 
     <h1> Create Account</h1>
@@ -57,7 +62,7 @@
             {data}
             <br/>
             <div class="button">
-                <button on:click={() => walletStore.confirmAccount(nameAccount)}>Continue</button>
+                <button on:click={confirmAccount}>Continue</button>
             </div>
         {:else}
         <h3>

@@ -7,35 +7,27 @@
 		accounts = value;
 	});
 
-
-    let something = "";
-    const getUsage = async () => {
-    let usage = await globalThis.api.sendPromise("hello");
-    console.log(usage);
-    something = usage.id;
-    
-    };
    
 
 </script>
 
 
     <h1> Accounts</h1>
-    <h2> 
+    <br/>
+    <h3> 
         {#each accounts as ac}
-               <div class="button"> <button on:click={() => walletStore.selectAccount(ac)}>{ac}</button>  </div>
+               <div class="button"> <button on:click={() => walletStore.selectAccount(ac)}>{ac}</button>  </div> <br/>
         {/each} 
             <div class="button"><button on:click={() => walletStore.createAccount()}>+</button></div>
-    </h2> 
+    </h3> 
 
-    <input type="text" bind:value={something} />
-    <button on:click={getUsage}>Get Usage Memomry</button>
+
    
 
 
 
 <style>
-	h1,h2{
+	h1,h3{
 		text-align: center;
 	}
     .button {

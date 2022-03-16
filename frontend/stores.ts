@@ -2,6 +2,7 @@ import { get, writable } from "svelte/store"
 
 export const accounts_store = writable("")
 export const selected_account = writable("")
+export const password_store = writable("")
 
 type Wallet = {} & (NotStarted | LoadAccount | CreateAccount | InTransaction | Main)
 
