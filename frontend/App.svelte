@@ -16,6 +16,7 @@
 		loading = true
 		try{
 	 	let accounts_return = await globalThis.api.accountsInFolder();
+		console.log(accounts_return);
 		accounts = accounts_return;
 		// save accounts names in store
 		accounts_store.set(accounts)
@@ -44,7 +45,8 @@
 		<Transaction />
 	{/if}
 	<footer>
-		A week project by
+		{$accounts_store}
+		A tiny project by
 		<a href="https://github.com/Javier747Belbruno" target="_blank">Javier747</a>, made with
 		<a href="https://svelte.dev/" target="_blank">Svelte</a> and
 		<a href="https://www.electronjs.org/" target="_blank">Electron</a>

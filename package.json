@@ -1,5 +1,5 @@
 {
-	"name": "svelte-app",
+	"name": "waterfly-wallet",
 	"version": "1.0.0",
 	"private": true,
 	"main": "./backend-electron/index.ts",

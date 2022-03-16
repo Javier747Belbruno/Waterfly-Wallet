@@ -12,6 +12,12 @@ v1.0
 -   [x] Show address.
 -   [x] Send IOTA to other wallets.
 
+v1.0.1
+
+-   [x] error folder creation.
+-   [x] delete console log backend side.
+-   [ ] error fix account display, bad format for account name, After creating a new account I think. See acount.svelte.
+
 v1.1
 
 -   [ ] Create a backup of your wallet.

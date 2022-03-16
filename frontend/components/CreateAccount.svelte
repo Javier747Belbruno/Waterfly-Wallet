@@ -45,7 +45,8 @@
     }
 
     function confirmAccount(){
-        accounts_store.set(accounts_store + "," + nameAccount);
+        console.log("|"+$accounts_store + "," + nameAccount+"|");
+        accounts_store.set($accounts_store + "," + nameAccount);
         walletStore.confirmAccount(nameAccount)
     }
 
