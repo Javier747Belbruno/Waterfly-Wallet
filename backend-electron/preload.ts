@@ -8,6 +8,10 @@ const API = {
 	createAccount: (name, pass) => ipcRenderer.invoke("createAccount", name, pass),
 	validateAccount: (name, pass) => ipcRenderer.invoke("validateAccount", name, pass),
 	getBalance: (name, pass) => ipcRenderer.invoke("getBalance", name, pass),
+	getNewOneAddress: (name, pass) => ipcRenderer.invoke("getNewOneAddress", name, pass),
+	getAddressListFromTangle: (name, pass) => ipcRenderer.invoke("getAddressListFromTangle", name, pass),
+	sendTransaction: (name, pass, address, amount) =>
+		ipcRenderer.invoke("sendTransaction", name, pass, address, amount),
 }
 
 contextBridge.exposeInMainWorld("api", API)

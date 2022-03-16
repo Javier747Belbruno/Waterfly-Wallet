@@ -1,11 +1,11 @@
 <script lang="ts">
 
-    import { walletStore,accounts_store,selected_account } from "../stores";
+    import { walletStore,accounts_store } from "../stores";
 
-    let accounts = "";
+    /*let accounts = "";
     accounts_store.subscribe(value => {
 		accounts = value;
-	});
+	});*/
 
    
 
@@ -15,7 +15,7 @@
     <h1> Accounts</h1>
     <br/>
     <h3> 
-        {#each accounts as ac}
+        {#each $accounts_store as ac}
                <div class="button"> <button on:click={() => walletStore.selectAccount(ac)}>{ac}</button>  </div> <br/>
         {/each} 
             <div class="button"><button on:click={() => walletStore.createAccount()}>+</button></div>

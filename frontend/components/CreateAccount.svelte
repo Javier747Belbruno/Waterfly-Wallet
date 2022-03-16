@@ -52,9 +52,7 @@
 </script>
 
     <h1> Create Account</h1>
-     <br/>
-     {state}
-     <br/>
+    <br/>
 	{#if state == "loading"}
 		<h2>Waiting...</h2>
 	{:else}
@@ -72,9 +70,10 @@
             <br/>
             <button on:click={createAccount}>Create</button>
         </h3>
+         <button on:click={() => walletStore.previous()}>Back</button>
         {/if}
 	{/if}
-  
+ 
 
 
 <style>

@@ -59,6 +59,14 @@ function createWalletStore() {
 				return wallet
 			})
 		},
+		inTransaction() {
+			update(wallet => {
+				if (wallet.state === "main") {
+					return { state: "in_transaction" }
+				}
+				return wallet
+			})
+		},
 		next() {
 			update(wallet => {
 				switch (wallet.state) {
@@ -78,9 +86,23 @@ function createWalletStore() {
 						return {
 							state: "main",
 						}
+				}
+			})
+		},
+		previous() {
+			update(wallet => {
+				switch (wallet.state) {
+					case "create_account":
+						return {
+							state: "select_account",
+						}
 					case "main":
 						return {
-							state: "in_transaction",
+							state: "select_account",
+						}
+					case "in_transaction":
+						return {
+							state: "main",
 						}
 				}
 			})

@@ -6,6 +6,7 @@
 	import Accounts from "./components/Accounts.svelte";
 	import CreateAccount from "./components/CreateAccount.svelte";
 	import Main from "./components/Main.svelte";
+	import Transaction from "./components/Transaction.svelte";
 
 	let loading = true
 
@@ -35,19 +36,15 @@
 		<Start {loading} />
 	{:else if $walletStore.state === 'select_account'}
 		<Accounts />
-	{:else if $walletStore.state === 'in_transaction'}
-		<Accounts />
 	{:else if $walletStore.state === 'create_account'}
 		<CreateAccount />
 	{:else if $walletStore.state === 'main'}
 		<Main />
+	{:else if $walletStore.state === 'in_transaction'}
+		<Transaction />
 	{/if}
 	<footer>
-		{$walletStore.state}
-		{$accounts_store}
-		{$selected_account}
-		<br/>
-		A weekend project by
+		A week project by
 		<a href="https://github.com/Javier747Belbruno" target="_blank">Javier747</a>, made with
 		<a href="https://svelte.dev/" target="_blank">Svelte</a> and
 		<a href="https://www.electronjs.org/" target="_blank">Electron</a>
