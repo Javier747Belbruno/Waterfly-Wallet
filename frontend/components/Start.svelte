@@ -2,10 +2,11 @@
 	import { walletStore } from "../stores"
 
 	export let loading: boolean
+	
 </script>
 
-<div>
-	<h1><span class="upper">Waterfly Wallet</span> </h1>
+<div  >
+	<h1 class="uppercase text-6xl leading-normal font-thin text-svelte"><span class="upper">Waterfly Wallet</span> </h1>
 	<p>
 		Bringing the  
 		<span class="upper"> future </span> to your wallet
@@ -20,20 +21,3 @@
 	{/if}
 </div>
 
-<style>
-	h1{
-		text-align: center;
-	}
-	p {
-		margin-top: 60px;
-		margin-bottom: 60px;
-	}
-	.button {
-		text-align: center;
-	}
-
-	.upper {
-		font-weight: bold;
-		border-bottom: 2px solid rgb(57, 47, 201);
-	}
-</style>

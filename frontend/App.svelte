@@ -1,13 +1,18 @@
 <script lang="ts">
 	import { onMount } from "svelte"
 
+	import Tailwindcss from "./components/Tailwindcss.svelte";
+	import ModeSwitcher from "./components/ModeSwitcher.svelte";
+
 	import { walletStore,accounts_store,selected_account } from "./stores"
+	
 	import Start from "./components/Start.svelte"
 	import Accounts from "./components/Accounts.svelte";
 	import CreateAccount from "./components/CreateAccount.svelte";
 	import Main from "./components/Main.svelte";
 	import Transaction from "./components/Transaction.svelte";
 
+	let dark:boolean =true;
 	let loading = true
 
 	let accounts = "";
@@ -30,9 +35,16 @@
 
 </script>
 
-<main>
-	
-    
+
+
+<main class="bg-gradient-to-br  flex items-center justify-center"
+  class:dark
+  class:from-blue-700={dark}
+  class:to-purple-800={dark}
+  class:from-yellow-200={!dark}
+  class:to-pink-300={!dark}>
+  
+	<ModeSwitcher/>
 	{#if $walletStore.state === 'not_started'}
 		<Start {loading} />
 	{:else if $walletStore.state === 'select_account'}
@@ -52,23 +64,15 @@
 		<a href="https://www.electronjs.org/" target="_blank">Electron</a>
 	</footer>
 </main>
-
 <style>
-	main {
-		margin: auto;
-		box-sizing: border-box;
-		min-height: 500px;
-		max-width: 550px;
-		position: relative;
-		padding-top: 40px;
-		padding-bottom: 170px;
-	}
-
-	footer {
-		color: rgb(68, 84, 233);
-		position: absolute;
-		bottom: 0;
-		text-align: center;
-		width: 100%;
-	}
+  main {
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto;
+  }
+  @media (min-width: 640px) {
+    main {
+      max-width: none;
+    }
+  }
 </style>

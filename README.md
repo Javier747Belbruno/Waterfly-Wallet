@@ -16,7 +16,11 @@ v1.0.1
 
 -   [x] error folder creation.
 -   [x] delete console log backend side.
+
+v1.0.2
+
 -   [ ] error fix account display, bad format for account name, After creating a new account I think. See acount.svelte.
+-   [ ] Add tailwind.
 
 v1.1
 
